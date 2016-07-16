@@ -36,14 +36,21 @@ inline void render_line(int x0, int y0, int x1, int y1, TGAImage& image, const T
 		std::swap(x0, x1);
 		std::swap(y0, y1);
 	}
+	const float derror = std::abs(static_cast<float>(y1 - y0) / (x1 - x0));
+	float error = 0;
+	int y = y0;
 	for (int x = x0; x < x1; ++x)
 	{
-		const float t = static_cast<float>(x - x0) / (x1 - x0);
-		const int y = static_cast<int>(y0 + t * (y1 - y0));
 		if (reversed)
 			image.set_pixel(pixel, y, x);
 		else
 			image.set_pixel(pixel, x, y);
+		error += derror;
+		if (error >= 0.5)
+		{
+			y += (y0 < y1) ? 1 : -1;
+			error -= 1.0;
+		}
 	}
 }
 
