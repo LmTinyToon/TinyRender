@@ -22,14 +22,29 @@ namespace TinyRender
 		Return: none
 
 */
-inline void render_line(const int x0, const int y0, const int x1, const int y1, TGAImage& image, const TGAImage::Pixel& pixel)
+inline void render_line(int x0, int y0, int x1, int y1, TGAImage& image, const TGAImage::Pixel& pixel)
 {
-	(void*)(&x0);
-	(void*)(&y0);
-	(void*)(&x1);
-	(void*)(&y1);
-	(void*)(&image);
-	(void*)(&pixel);
+	bool reversed = false;
+	if (std::abs(x1 - x0) < std::abs(y1 - y0))
+	{
+		std::swap(x0, y0);
+		std::swap(x1, y1);
+		reversed = true;
+	}
+	if (x0 > x1)
+	{
+		std::swap(x0, x1);
+		std::swap(y0, y1);
+	}
+	for (int x = x0; x < x1; ++x)
+	{
+		const float t = static_cast<float>(x - x0) / (x1 - x0);
+		const int y = static_cast<int>(y0 + t * (y1 - y0));
+		if (reversed)
+			image.set_pixel(pixel, y, x);
+		else
+			image.set_pixel(pixel, x, y);
+	}
 }
 
 //	TinyRender end namespace
