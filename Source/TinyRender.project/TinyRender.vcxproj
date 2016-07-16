@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Main.cpp" />
+    <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\TGAImage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\Line.h" />
+    <ClInclude Include="..\..\Include\Model.h" />
     <ClInclude Include="..\..\Include\TGAImage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
