@@ -31,6 +31,9 @@ void TGAImage::set_pixel(const Pixel& pixel, const int x, const int y)
 {
 	//	TODO: optimize this code
 	const int pos = (x + y * m_width)*m_bytes_per_pixel;
+	//	NOTE: we should put pixel only at existed position in image
+	if (pos < 0 || m_width * m_height <= pos)
+		return;
 	const int offset = (m_bytes_per_pixel == 4) ? 1 : 0;
 	if (m_bytes_per_pixel == 4)
 		memcpy(&m_buffer[pos], &pixel.alpha, 1);
