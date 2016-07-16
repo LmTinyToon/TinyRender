@@ -1,2 +1,5 @@
 # TinyRender
-It is my attemp to create own small render (for educational purposes). I am planning to implement basic algorithms of computer graphics in this project.
+It is my attemp to create own small render (for educational purposes) on C++ lanugage. 
+I am planning to implement basic algorithms of computer graphics in this project.
+
+NOTE: I am developing this project on Windows platform.
