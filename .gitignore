@@ -1,5 +1,5 @@
 *.suo
 *.user
 *.filters
-Bin/
-Temp/ 
+Bin/*
+Temp/*

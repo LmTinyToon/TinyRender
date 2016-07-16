@@ -1,4 +1,10 @@
+//	Std includes
 #include <iostream>
+
+//	Local includes
+#include "TGAImage.h"
+
+
 
 int main(void)
 {
