@@ -19,6 +19,7 @@
     <ClInclude Include="..\..\Include\Line.h" />
     <ClInclude Include="..\..\Include\Model.h" />
     <ClInclude Include="..\..\Include\TGAImage.h" />
+    <ClInclude Include="..\..\Include\Triangle.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1AC90A6C-039D-4117-B31C-6D1852ECFAAC}</ProjectGuid>
