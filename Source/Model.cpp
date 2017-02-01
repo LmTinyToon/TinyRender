@@ -28,7 +28,26 @@ public:
 
 protected:
 private:
+//	Enums/Constants
+//		ElementType
+	enum ElementType
+	{
+		Comment,
+		GeometricVertex,
+		Face
+	};
+
 //	Methods
+/*
+		Extracts element type from string
+		Params: string
+		Return: element type
+*/
+	ElementType extract_elem_type(const string& str)
+	{
+		return ElementType::Comment;
+	}
+
 /*
 		Parses ifstream file
 		Params: ifstream file
@@ -38,15 +57,15 @@ private:
 	{
 		for (string buff; getline(file, buff); )
 		{
-			switch (buff[0])
+			switch (extract_elem_type(buff))
 			{
-				case 'v': 
+				case ElementType::GeometricVertex:
 					parse_vertex(buff);
 				break;
-				case 'f':
+				case ElementType::Face:
 					parse_face(buff);
 				break;
-				case '#':	
+				case ElementType::Comment:
 					//	Skipping comment
 				break;
 			}
