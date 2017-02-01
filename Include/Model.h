@@ -74,6 +74,25 @@ struct Point
 	std::array<float, 4> coords;
 };
 
+//		Triangle class
+struct Triangle
+{
+//	Constructors
+/*
+		Triangle constructor
+		Params: indices of vertices
+*/
+	Triangle(const int i, const int j, const int k) :
+		vertices({ i, j, k })
+	{
+
+	}
+
+//	Members
+//		Indices of vertices
+	std::array<int, 3> vertices;
+};
+
 //		Model class
 class Model
 {
