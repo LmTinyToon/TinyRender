@@ -1,6 +1,7 @@
 *.suo
 *.sdf
-*opendb
+*.opendb
+*.db
 *.user
 *.filters
 Bin/*
