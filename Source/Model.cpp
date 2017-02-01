@@ -33,8 +33,7 @@ private:
 	enum ElementType
 	{
 		Comment,
-		GeometricVertex,
-		Face
+		GeometricVertex
 	};
 
 //	Methods
@@ -42,9 +41,23 @@ private:
 		Extracts element type from string
 		Params: string
 		Return: element type
+
+		NOTE: in current implementation it can only recognize vertices and comments (skip it)
 */
 	ElementType extract_elem_type(const string& str)
 	{
+		for (size_t pos = 0; pos < str.size(); ++pos)
+		{
+			if (str[pos] == ' ')
+				continue;
+			switch (str[pos])
+			{
+				case 'v':
+					return ElementType::GeometricVertex;
+				case '#':
+					return ElementType::Comment;
+			}
+		}
 		return ElementType::Comment;
 	}
 
@@ -62,9 +75,6 @@ private:
 				case ElementType::GeometricVertex:
 					parse_vertex(buff);
 				break;
-				case ElementType::Face:
-					parse_face(buff);
-				break;
 				case ElementType::Comment:
 					//	Skipping comment
 				break;
@@ -79,17 +89,6 @@ private:
 */
 	void parse_vertex(const string& vertex_line)
 	{
-	}
-
-/*
-		Parses face line
-		Params: face line
-		Return: none
-*/
-	void parse_face(const string& face_line)
-	{
-		//	TODO: (alex) remove usage std exception class
-		throw exception("Parsing of faces is not implemented");
 	}
 
 //	Members
