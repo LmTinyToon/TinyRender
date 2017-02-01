@@ -33,7 +33,8 @@ private:
 	enum ElementType
 	{
 		Comment,
-		GeometricVertex
+		GeometricVertex,
+		Face
 	};
 
 //	Methods
@@ -54,6 +55,9 @@ private:
 				case ElementType::GeometricVertex:
 					m_geom_vertices.push_back(parse_geom_vertex(buff, pos));
 				break;
+				case ElementType::Face:
+					m_triangles.push_back(parse_triangle(buff, pos));
+				break;
 				case ElementType::Comment:
 					//	Skipping comment
 				break;
@@ -70,13 +74,15 @@ private:
 	{
 		if (elem_str == "v")
 			return ElementType::GeometricVertex;
+		if (elem_str == "f")
+			return ElementType::Face;
 		return ElementType::Comment;
 	}
 
 /*
 		Parses geometric vertex
 		Params: vertex line, position
-		Return: none
+		Return: geometric vertex
 */
 	Point parse_geom_vertex(const string& vertex_line, size_t& pos)
 	{
@@ -85,6 +91,30 @@ private:
 		for (size_t i = 0; i < 3 && skip_spaces(vertex_line, pos); ++i)
 			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
 		return Point(coords);
+	}
+
+/*
+		Parses face
+		Params: face line, position
+		Return: face
+*/
+	Triangle parse_triangle(const string& face_line, size_t& pos)
+	{
+		skip_spaces(face_line, pos);
+		const int i = parse_int_number(get_token_str(face_line, pos, '/'));
+		
+		//	TODO: (alex) too dirty
+		get_token_str(face_line, pos, ' ');
+		skip_spaces(face_line, pos);
+
+		const int j = parse_int_number(get_token_str(face_line, pos, '/'));
+
+		//	TODO: (alex) too dirty
+		get_token_str(face_line, pos, ' ');
+		skip_spaces(face_line, pos);
+
+		const int k = parse_int_number(get_token_str(face_line, pos, '/'));
+		return Triangle(i - 1, j - 1, k - 1);
 	}
 
 /*
@@ -151,6 +181,8 @@ private:
 //	Members
 //		Geometry vertices
 	vector<Point> m_geom_vertices;
+//		Triangles
+	vector<Triangle> m_triangles;
 };
 
 //	Model - constructors/destructor
