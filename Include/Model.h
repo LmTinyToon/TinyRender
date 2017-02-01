@@ -38,6 +38,37 @@ struct Point
 	{
 	}
 
+//	Public methods
+/*
+		X coord getter
+		Params: none
+		Return: x coord getter
+*/
+	float x(void) const
+	{
+		return coords[0];
+	}
+
+/*
+		Y coord getter
+		Params: none
+		Return: x coord getter
+*/
+	float y(void) const
+	{
+		return coords[1];
+	}
+
+/*
+		Z coord getter
+		Params: none
+		Return: x coord getter
+*/
+	float z(void) const
+	{
+		return coords[2];
+	}
+
 //	Public members
 //		Coords
 	std::array<float, 4> coords;
@@ -48,7 +79,7 @@ class Model
 {
 public:
 //	Classes
-	typedef std::vector<int> vertices_type;
+	typedef std::vector<Point> vertices_type;
 
 //	Constructors/destructor
 /*
