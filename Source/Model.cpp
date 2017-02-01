@@ -18,9 +18,10 @@ public:
 //	Constructors/destructors
 /*
 		ObjParser constructor
-		Params: file name
+		Params: file name, shared geom vertices, shared triangles
 */
-	ObjParser(const string& file_name)
+	ObjParser(const string& file_name, vector<Point>& vertices, vector<Triangle>& triangles) : 
+		m_geom_vertices(vertices), m_triangles(triangles)
 	{
 		ifstream file_model(file_name);
 		parse_stream(file_model);
@@ -180,14 +181,14 @@ private:
 
 //	Members
 //		Geometry vertices
-	vector<Point> m_geom_vertices;
+	vector<Point>& m_geom_vertices;
 //		Triangles
-	vector<Triangle> m_triangles;
+	vector<Triangle>& m_triangles;
 };
 
 //	Model - constructors/destructor
-Model::Model(const string& model_name) : 
-	m_vertices()
+Model::Model(const string& model_name) :
+	m_vertices(), m_triangles()
 {
 	ifstream file_model(model_name);
 	size_t triangles_count = 0;

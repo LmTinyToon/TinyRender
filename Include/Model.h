@@ -98,7 +98,10 @@ class Model
 {
 public:
 //	Classes
+//		vertices type
 	typedef std::vector<Point> vertices_type;
+//		triangles type
+	typedef std::vector<Triangle> triangles_type;
 
 //	Constructors/destructor
 /*
@@ -117,11 +120,23 @@ public:
 		return m_vertices;
 	}
 
+/*
+		Gets trianlges of model
+		Params: none
+		Return: triangles of model
+*/
+	inline triangles_type& triangles(void)
+	{
+		return m_triangles;
+	}
+
 protected:
 private:
 //	Members
 //		Vertices of model
 	vertices_type m_vertices;
+//		Triangles of model
+	triangles_type m_triangles;
 };
 //	Global functions
 	
