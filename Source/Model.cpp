@@ -38,30 +38,6 @@ private:
 
 //	Methods
 /*
-		Extracts element type from string
-		Params: string
-		Return: element type
-
-		NOTE: in current implementation it can only recognize vertices and comments (skip it)
-*/
-	ElementType extract_elem_type(const string& str)
-	{
-		for (size_t pos = 0; pos < str.size(); ++pos)
-		{
-			if (str[pos] == ' ')
-				continue;
-			switch (str[pos])
-			{
-				case 'v':
-					return ElementType::GeometricVertex;
-				case '#':
-					return ElementType::Comment;
-			}
-		}
-		return ElementType::Comment;
-	}
-
-/*
 		Parses ifstream file
 		Params: ifstream file
 		Return: none
@@ -70,10 +46,12 @@ private:
 	{
 		for (string buff; getline(file, buff); )
 		{
-			switch (extract_elem_type(buff))
+			size_t pos = 0;
+			skip_spaces(buff, pos);
+			switch (parse_elem_type(get_token_str(buff, pos, ' ')))
 			{
 				case ElementType::GeometricVertex:
-					parse_vertex(buff);
+					parse_geom_vertex(buff);
 				break;
 				case ElementType::Comment:
 					//	Skipping comment
@@ -83,12 +61,68 @@ private:
 	}
 
 /*
-		Parses vertex line
+		Parses element type
+		Params: element string representation
+		Return: element type
+*/
+	ElementType parse_elem_type(const string& elem_str)
+	{
+		if (elem_str == "v")
+			return ElementType::GeometricVertex;
+		return ElementType::Comment;
+	}
+
+/*
+		Parses geometric vertex
 		Params: vertex line
 		Return: none
 */
-	void parse_vertex(const string& vertex_line)
+	void parse_geom_vertex(const string& vertex_line)
 	{
+	}
+
+/*
+		Parses number
+		Params: number string
+		Return: number
+*/
+	float parse_number(const string& num_str)
+	{
+		float num = 0;
+		const bool neg = num_str[0] == '-';
+		size_t pos = neg ? 1 : 0;
+		for (; num_str[pos] != '.' && pos < num_str.size(); ++pos)
+			num += num * 10 + num_str[0] - '0';
+		const int frac_digs = num_str.size() - pos + 1;
+		for (++pos; pos < num_str.size(); ++pos)
+			num += num * 10 + num_str[0] - '0';
+		num /= frac_digs;
+		return neg ? -num : num;
+	}
+
+/*
+		Get token string
+		Params: string, position, end delimiter
+		Return: token string
+*/
+	string get_token_str(const string& str, size_t& pos, const char del)
+	{
+		string buf;
+		buf.reserve(4);
+		for (; str[pos] != del; ++pos)
+			buf.push_back(str[pos]);
+		return buf;
+	}
+
+/*
+		Skips spaces in string
+		Params: string, current position
+		Return: none
+*/
+	void skip_spaces(const string& str, size_t& pos)
+	{
+		for (; str[pos] == ' ' && pos < str.size(); ++pos)
+			;
 	}
 
 //	Members
