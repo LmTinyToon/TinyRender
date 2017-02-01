@@ -48,10 +48,11 @@ private:
 		{
 			size_t pos = 0;
 			skip_spaces(buff, pos);
-			switch (parse_elem_type(get_token_str(buff, pos, ' ')))
+			const ElementType elem_type = parse_elem_type(get_token_str(buff, pos, ' '));
+			switch (elem_type)
 			{
 				case ElementType::GeometricVertex:
-					parse_geom_vertex(buff);
+					m_geom_vertices.push_back(parse_geom_vertex(buff, pos));
 				break;
 				case ElementType::Comment:
 					//	Skipping comment
@@ -74,11 +75,16 @@ private:
 
 /*
 		Parses geometric vertex
-		Params: vertex line
+		Params: vertex line, position
 		Return: none
 */
-	void parse_geom_vertex(const string& vertex_line)
+	Point parse_geom_vertex(const string& vertex_line, size_t& pos)
 	{
+		array<float, 4> coords;
+		coords[3] = 1.0;
+		for (size_t i = 0; i < 3 && skip_spaces(vertex_line, pos); ++i)
+			coords[i] = parse_number(get_token_str(vertex_line, pos, ' '));
+		return Point(coords);
 	}
 
 /*
@@ -109,7 +115,7 @@ private:
 	{
 		string buf;
 		buf.reserve(4);
-		for (; str[pos] != del; ++pos)
+		for (; pos < str.size() && str[pos] != del; ++pos)
 			buf.push_back(str[pos]);
 		return buf;
 	}
@@ -128,6 +134,8 @@ private:
 	}
 
 //	Members
+//		Geometry vertices
+	vector<Point> m_geom_vertices;
 };
 
 //	Model - constructors/destructor

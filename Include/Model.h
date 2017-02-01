@@ -29,6 +29,15 @@ struct Point
 	{
 	}
 
+/*
+		Point constructor
+		Params: coords array
+*/
+	Point(const std::array<float, 4>& _coords) :
+		coords(_coords)
+	{
+	}
+
 //	Public members
 //		Coords
 	std::array<float, 4> coords;
