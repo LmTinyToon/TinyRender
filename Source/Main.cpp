@@ -18,14 +18,19 @@ int main(void)
 {
 	std::ofstream out_tga_file("TGATEST.tga", std::ios::binary);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
-	TinyRender::Model model("../../Models/PyramidModel.obj");
+	TinyRender::Model model("../../Models/AfricanHead.obj");
 	TinyRender::Model::vertices_type& vertices = model.vertices();
-	for (size_t i = 0; i < vertices.size(); i += 3)
+	for (size_t tr_id = 0; tr_id < model.triangles().size(); ++tr_id)
 	{
-		//	TODO: (alex) fix extra conversion
-		TinyRender::render_triangle(vertices[i].x(), vertices[i].y(), 
-									vertices[i + 1].x(), vertices[i + 1].y(), 
-									vertices[i + 2].x(), vertices[i + 2].y(), tga_image, TinyRender::TGAImage::Pixel(255, 0, 0));
+		for (size_t i = 0; i < 3; ++i)
+		{
+			const TinyRender::Point& p1 = model.vertices()[model.triangles()[tr_id].vertices[i]];
+			const TinyRender::Point& p2 = model.vertices()[model.triangles()[tr_id].vertices[(i + 1) % 3]];
+			TinyRender::render_line((p1.x() + 1) * width / 2, 
+									(p1.y() + 1) * height / 2, 
+									(p2.x() + 1) * width / 2, 
+									(p2.y() + 1) * height / 2, tga_image, TinyRender::TGAImage::Pixel(255, 0, 0));
+		}
 	}
 	tga_image << out_tga_file;
 	out_tga_file.close();
