@@ -83,16 +83,16 @@ private:
 		array<float, 4> coords;
 		coords[3] = 1.0;
 		for (size_t i = 0; i < 3 && skip_spaces(vertex_line, pos); ++i)
-			coords[i] = parse_number(get_token_str(vertex_line, pos, ' '));
+			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
 		return Point(coords);
 	}
 
 /*
-		Parses number
+		Parses float number
 		Params: number string
-		Return: number
+		Return: float number
 */
-	float parse_number(const string& num_str)
+	float parse_float_number(const string& num_str)
 	{
 		float num = 0;
 		const bool neg = num_str[0] == '-';
@@ -103,6 +103,21 @@ private:
 		for (++pos; pos < num_str.size(); ++pos, frac_digs *= 10)
 			num = num * 10 + num_str[pos] - '0';
 		num /= frac_digs;
+		return neg ? -num : num;
+	}
+
+/*
+		Parses int number
+		Params: number string
+		Return: int number
+*/
+	int parse_int_number(const string& num_str)
+	{
+		int num = 0;
+		const bool neg = num_str[0] == '-';
+		size_t pos = neg ? 1 : 0;
+		for (; pos < num_str.size(); ++pos)
+			num = num * 10 + num_str[pos] - '0';
 		return neg ? -num : num;
 	}
 
