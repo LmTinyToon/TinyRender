@@ -91,7 +91,7 @@ private:
 		float num = 0;
 		const bool neg = num_str[0] == '-';
 		size_t pos = neg ? 1 : 0;
-		for (; num_str[pos] != '.' && pos < num_str.size(); ++pos)
+		for (; pos < num_str.size() && num_str[pos] != '.'; ++pos)
 			num += num * 10 + num_str[0] - '0';
 		const int frac_digs = num_str.size() - pos + 1;
 		for (++pos; pos < num_str.size(); ++pos)
@@ -117,12 +117,14 @@ private:
 /*
 		Skips spaces in string
 		Params: string, current position
-		Return: none
+		Return: continue flag
 */
-	void skip_spaces(const string& str, size_t& pos)
+	bool skip_spaces(const string& str, size_t& pos)
 	{
-		for (; str[pos] == ' ' && pos < str.size(); ++pos)
-			;
+		bool res = pos < str.size();
+		for (; res && str[pos] == ' ';)
+			res = ++pos < str.size();
+		return res;
 	}
 
 //	Members
