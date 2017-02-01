@@ -5,6 +5,7 @@
 //	Std includes
 #include <vector>
 #include <string>
+#include <array>
 
 //	Includes
 
@@ -15,6 +16,24 @@ namespace TinyRender
 //	Constants/enums
 
 //	Global classes
+//		Point class
+struct Point
+{
+//	Constructors
+/*
+		Point constructor
+		Params: x, y, z, w coords
+*/
+	Point(const float x, const float y, const float z, const float w = 1.0) :
+		coords({x, y, z, w})
+	{
+	}
+
+//	Public members
+//		Coords
+	std::array<float, 4> coords;
+};
+
 //		Model class
 class Model
 {
