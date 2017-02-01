@@ -98,10 +98,10 @@ private:
 		const bool neg = num_str[0] == '-';
 		size_t pos = neg ? 1 : 0;
 		for (; pos < num_str.size() && num_str[pos] != '.'; ++pos)
-			num += num * 10 + num_str[0] - '0';
-		const int frac_digs = num_str.size() - pos + 1;
-		for (++pos; pos < num_str.size(); ++pos)
-			num += num * 10 + num_str[0] - '0';
+			num = num * 10 + num_str[pos] - '0';
+		int frac_digs = 1;
+		for (++pos; pos < num_str.size(); ++pos, frac_digs *= 10)
+			num = num * 10 + num_str[pos] - '0';
 		num /= frac_digs;
 		return neg ? -num : num;
 	}
