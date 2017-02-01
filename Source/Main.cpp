@@ -18,7 +18,7 @@ int main(void)
 {
 	std::ofstream out_tga_file("TGATEST.tga", std::ios::binary);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
-	TinyRender::Model model("../../Models/PyramidModel.txt");
+	TinyRender::Model model("../../Models/PyramidModel.obj");
 	TinyRender::Model::vertices_type& vertices = model.vertices();
 	for (size_t i = 0; i < vertices.size(); i += 3)
 	{

@@ -190,17 +190,7 @@ private:
 Model::Model(const string& model_name) :
 	m_vertices(), m_triangles()
 {
-	ifstream file_model(model_name);
-	size_t triangles_count = 0;
-	file_model >> triangles_count;
-	m_vertices.reserve(triangles_count * 3);
-	for (size_t i = 0; i < triangles_count * 3; ++i)
-	{
-		array<float, 4> coords = { 0.0, 0.0, 0.0, 1.0 };
-		for (size_t j = 0; j < 2; ++j)
-			file_model >> coords[j];
-		m_vertices.push_back(Point(coords));
-	}
+	ObjParser parser(model_name, m_vertices, m_triangles);
 }
 
 //	TinyReader end namespace
