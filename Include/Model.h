@@ -81,6 +81,31 @@ struct Point
 	}
 
 /*
+		Computes length
+		Params: none
+		Return: length
+*/
+	float len(void) const
+	{
+		float res = 0;
+		for (size_t i = 0; i < 2; ++i)
+			res += coords[i] * coords[i];
+		return sqrt(res);
+	}
+
+/*
+		Normalizes point
+		Params: none
+		Return: none
+*/
+	void normalize(void)
+	{
+		const float length = len();
+		for (size_t i = 0; i < coords.size(); ++i)
+			coords[i] /= length;
+	}
+
+/*
 		X coord getter
 		Params: none
 		Return: x coord getter
