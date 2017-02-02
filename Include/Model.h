@@ -40,6 +40,47 @@ struct Point
 
 //	Public methods
 /*
+		Substracts point
+		Params: point
+		Return: result of substraction
+*/
+	Point operator-(const Point& rhs) const
+	{
+		std::array<float, 4> buff;
+		for (size_t i = 0; i < buff.size(); ++i)
+			buff[i] = coords[i] - rhs.coords[i];
+		return Point(buff);
+	}
+
+/*
+		Performs dot production
+		Params: point
+		Return: result of dot production
+*/
+	float operator*(const Point& rhs) const
+	{
+		float res = 0;
+		for (size_t i = 0; i < coords.size(); ++i)
+			res += coords[i] * rhs.coords[i];
+		return res;
+	}
+
+/*
+		Performs cross production
+		Params: point
+		Return: result of cross production
+*/
+	Point operator^(const Point& rhs) const
+	{
+		std::array<float, 4> buff;
+		buff[0] = y() * rhs.z() - z() * rhs.y();
+		buff[1] = z() * rhs.x() - x() * rhs.z();
+		buff[2] = x() * rhs.y() - y() * rhs.x();
+		buff[3] = 1.0;
+		return Point(buff);
+	}
+
+/*
 		X coord getter
 		Params: none
 		Return: x coord getter
