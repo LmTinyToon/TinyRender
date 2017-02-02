@@ -26,12 +26,19 @@ int main(void)
 		const TinyRender::Point& p2 = model.vertices()[model.triangles()[tr_id].vertices[1]];
 		const TinyRender::Point& p3 = model.vertices()[model.triangles()[tr_id].vertices[2]];
 
+		const float p1x = (p1.x() + 1) * width / 2;
+		const float p1y = (p1.y() + 1) * height / 2;
+		const float p2x = (p2.x() + 1) * width / 2;
+		const float p2y = (p2.y() + 1) * height / 2;
+		const float p3x = (p3.x() + 1) * width / 2;
+		const float p3y = (p3.y() + 1) * height / 2;
+
 		TinyRender::Point norm_vec = (p2 - p1) ^ (p3 - p1);
 		norm_vec.normalize();
 		const float intense = light_vec * norm_vec;
 		if (intense > 0)
 		{
-			TinyRender::render_triangle(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y(), tga_image, 
+			TinyRender::render_triangle(p1x, p1y, p2x, p2y, p3x, p3y, tga_image, 
 				TinyRender::TGAImage::Pixel(255 * intense, 255 * intense, 255 * intense));
 		}
 	}
