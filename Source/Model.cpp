@@ -128,12 +128,15 @@ private:
 		float num = 0;
 		const bool neg = num_str[0] == '-';
 		size_t pos = neg ? 1 : 0;
-		for (; pos < num_str.size() && num_str[pos] != '.'; ++pos)
+		for (; pos < num_str.size() && num_str[pos] != '.' && num_str[pos] != 'e'; ++pos)
 			num = num * 10 + num_str[pos] - '0';
 		int frac_digs = 1;
-		for (++pos; pos < num_str.size(); ++pos, frac_digs *= 10)
+		pos = pos < num_str.size() && num_str[pos] == '.' ? pos + 1 : pos;
+		for (; pos < num_str.size() && num_str[pos] != 'e'; ++pos, frac_digs *= 10)
 			num = num * 10 + num_str[pos] - '0';
 		num /= frac_digs;
+		if (pos < num_str.size() && num_str[pos++] == 'e')
+			num = pow(num, parse_int_number(num_str.substr(pos, num_str.size() - pos)));
 		return neg ? -num : num;
 	}
 
