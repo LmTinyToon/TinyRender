@@ -43,6 +43,16 @@ public:
 		{
 		}
 
+	/*
+		Multiplies pixel by factor
+		Params: factor, flag indicating alpha multiplication [=false]
+		Return: transformed pixel
+	*/
+		Pixel mult(const float f, const bool use_alpha = false) const
+		{
+			return Pixel(red * f, green * f, blue * f, use_alpha ? alpha * f : alpha);
+		}
+
 	//	Members
 	//		Red component of pixel
 		int red;
