@@ -17,7 +17,7 @@ static const int height = 800;
 int main(void)
 {
 	const TinyRender::Point light_vec(1.0, 0.0, 0.0, 0.0);
-	std::ofstream out_tga_file("TGATEST.tga", std::ios::binary);
+	std::ofstream out_tga_file("../../Temp/TGATEST.tga", std::ios::binary);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
 	TinyRender::Model model("../../Models/AfricanHead.obj");
 	for (size_t tr_id = 0; tr_id < model.triangles().size(); ++tr_id)
