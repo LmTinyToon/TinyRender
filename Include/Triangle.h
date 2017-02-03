@@ -53,27 +53,29 @@ inline void render_triangle(int x0, int y0, int x1, int y1, int x2, int y2, TGAI
 		std::swap(xx, x1);
 		std::swap(yx, y1);
 	}
+	float alpha = 0.0;
 	int seg_height = yx - y0;
 	if (seg_height != 0)
 	{
 		const int lhs_dx = xx - x0;
 		const int rhs_dx = x1 - x0;
-		for (int y = y0; y <= yx; ++y)
+		const float dy = 1.0 / seg_height;
+		for (int y = y0; y <= yx; ++y, alpha += dy)
 		{
-			const float alpha = static_cast<float>(y - y0) / seg_height;
 			const int rx = x0 + rhs_dx * alpha;
 			for (int x = x0 + lhs_dx * alpha; x <= rx; ++x)
 				image.set_pixel(pixel, x, y);
 		}
 	}
 	seg_height = y2 - yx;
+	alpha = 0.0;
 	if (seg_height != 0)
 	{
 		const int lhs_dx = x2 - xx;
 		const int rhs_dx = x2 - x1;
-		for (int y = yx; y <= y2; ++y)
+		const float dy = 1.0 / seg_height;
+		for (int y = yx; y <= y2; ++y, alpha += dy)
 		{
-			const float alpha = static_cast<float>(y - yx) / seg_height;
 			const int rx = x1 + rhs_dx * alpha;
 			for (int x = xx + lhs_dx * alpha; x <= rx; ++x)
 				image.set_pixel(pixel, x, y);
