@@ -25,10 +25,13 @@ namespace TinyRender
 inline void render_line(int x0, int y0, int x1, int y1, TGAImage& image, const TGAImage::Pixel& pixel)
 {
 	bool reversed = false;
-	if (std::abs(x1 - x0) < std::abs(y1 - y0))
+	int dx = std::abs(x1 - x0);
+	int dy = std::abs(y1 - y0);
+	if (dx < dy)
 	{
 		std::swap(x0, y0);
 		std::swap(x1, y1);
+		std::swap(dx, dy);
 		reversed = true;
 	}
 	if (x0 > x1)
@@ -36,20 +39,18 @@ inline void render_line(int x0, int y0, int x1, int y1, TGAImage& image, const T
 		std::swap(x0, x1);
 		std::swap(y0, y1);
 	}
-	const float derror = std::abs(static_cast<float>(y1 - y0) / (x1 - x0));
-	float error = 0;
-	int y = y0;
-	for (int x = x0; x < x1; ++x)
+	const int derror2 = dy * 2;
+	for (int x = x0, y = y0, error2 = 0; x <= x1; ++x)
 	{
 		if (reversed)
 			image.set_pixel(pixel, y, x);
 		else
 			image.set_pixel(pixel, x, y);
-		error += derror;
-		if (error >= 0.5)
+		error2 += derror2;
+		if (error2 > dx)
 		{
 			y += (y0 < y1) ? 1 : -1;
-			error -= 1.0;
+			error2 -= dx * 2;
 		}
 	}
 }
