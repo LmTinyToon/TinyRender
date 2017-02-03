@@ -60,7 +60,7 @@ struct Point
 	float operator*(const Point& rhs) const
 	{
 		float res = 0;
-		for (size_t i = 0; i < coords.size(); ++i)
+		for (size_t i = 0; i + 1 < coords.size(); ++i)
 			res += coords[i] * rhs.coords[i];
 		return res;
 	}
@@ -88,7 +88,7 @@ struct Point
 	float len(void) const
 	{
 		float res = 0;
-		for (size_t i = 0; i < 2; ++i)
+		for (size_t i = 0; i + 1 < coords.size(); ++i)
 			res += coords[i] * coords[i];
 		return sqrt(res);
 	}

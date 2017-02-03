@@ -16,7 +16,7 @@ static const int height = 800;
 
 int main(void)
 {
-	const TinyRender::Point light_vec(1.0, 0.0, 0.0, 0.0);
+	const TinyRender::Point light_vec(0.0, 0.0, -1.0, 0.0);
 	const TinyRender::TGAImage::Pixel pixel(255, 255, 255);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
 	std::ofstream out_tga_file("../../Temp/TGATEST.tga", std::ios::binary);
@@ -34,7 +34,7 @@ int main(void)
 		const float p3x = (p3.x() + 1) * width / 2;
 		const float p3y = (p3.y() + 1) * height / 2;
 
-		TinyRender::Point norm_vec = (p2 - p1) ^ (p3 - p1);
+		TinyRender::Point norm_vec = (p3 - p1) ^ (p2 - p1);
 		norm_vec.normalize();
 		const float intense = light_vec * norm_vec;
 		if (intense > 0)
