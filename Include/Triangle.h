@@ -56,24 +56,26 @@ inline void render_triangle(int x0, int y0, int x1, int y1, int x2, int y2, TGAI
 	int seg_height = yx - y0;
 	if (seg_height != 0)
 	{
+		const int lhs_dx = xx - x0;
+		const int rhs_dx = x1 - x0;
 		for (int y = y0; y <= yx; ++y)
 		{
 			const float alpha = static_cast<float>(y - y0) / seg_height;
-			const int lx = x0 + (xx - x0) * alpha;
-			const int rx = x0 + (x1 - x0) * alpha;
-			for (int x = lx; x <= rx; ++x)
+			const int rx = x0 + rhs_dx * alpha;
+			for (int x = x0 + lhs_dx * alpha; x <= rx; ++x)
 				image.set_pixel(pixel, x, y);
 		}
 	}
 	seg_height = y2 - yx;
 	if (seg_height != 0)
 	{
+		const int lhs_dx = x2 - xx;
+		const int rhs_dx = x2 - x1;
 		for (int y = yx; y <= y2; ++y)
 		{
 			const float alpha = static_cast<float>(y - yx) / seg_height;
-			const int lx = xx + (x2 - xx) * alpha;
-			const int rx = x1 + (x2 - x1) * alpha;
-			for (int x = lx; x <= rx; ++x)
+			const int rx = x1 + rhs_dx * alpha;
+			for (int x = xx + lhs_dx * alpha; x <= rx; ++x)
 				image.set_pixel(pixel, x, y);
 		}
 	}
