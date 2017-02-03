@@ -29,36 +29,52 @@ namespace TinyRender
 */
 inline void render_triangle(int x0, int y0, int x1, int y1, int x2, int y2, TGAImage& image, const TGAImage::Pixel& pixel)
 {
-	/*
-			This algorithm is similar to Bresenham's line algorithm
-			I just use two consequenced calling Bresenham's line algorithm
-	*/
-	bool reversed = false;
-	if (std::abs(x1 - x0) < std::abs(y1 - y0))
-	{
-		std::swap(x0, y0);
-		std::swap(x1, y1);
-		reversed = true;
-	}
-	if (x0 > x1)
+	if (y0 == y1 && y1 == y2)
+		return;
+	if (y0 > y1)
 	{
 		std::swap(x0, x1);
 		std::swap(y0, y1);
 	}
-	const float derror = std::abs(static_cast<float>(y1 - y0) / (x1 - x0));
-	float error = 0;
-	int y = y0;
-	for (int x = x0; x < x1; ++x)
+	if (y0 > y2)
 	{
-		if (reversed)
-			render_line(y, x, x2, y2, image, pixel);
-		else
-			render_line(x, y, x2, y2, image, pixel);
-		error += derror;
-		if (error >= 0.5)
+		std::swap(x0, x2);
+		std::swap(y0, y2);
+	}
+	if (y1 > y2)
+	{
+		std::swap(x1, x2);
+		std::swap(y1, y2);
+	}
+	int xx = y0 == y1 || x0 == x2 ? x0 : (y1 - y0) * static_cast<float>(x2 - x0) / (y2 - y0) + x0;
+	int yx = y1;
+	if (x1 < xx)
+	{
+		std::swap(xx, x1);
+		std::swap(yx, y1);
+	}
+	int seg_height = yx - y0;
+	if (seg_height != 0)
+	{
+		for (int y = y0; y <= yx; ++y)
 		{
-			y += (y0 < y1) ? 1 : -1;
-			error -= 1.0;
+			const float alpha = static_cast<float>(y - y0) / seg_height;
+			const int lx = x0 + (xx - x0) * alpha;
+			const int rx = x0 + (x1 - x0) * alpha;
+			for (int x = lx; x <= rx; ++x)
+				image.set_pixel(pixel, x, y);
+		}
+	}
+	seg_height = y2 - yx;
+	if (seg_height != 0)
+	{
+		for (int y = yx; y <= y2; ++y)
+		{
+			const float alpha = static_cast<float>(y - yx) / seg_height;
+			const int lx = xx + (x2 - xx) * alpha;
+			const int rx = x1 + (x2 - x1) * alpha;
+			for (int x = lx; x <= rx; ++x)
+				image.set_pixel(pixel, x, y);
 		}
 	}
 }
