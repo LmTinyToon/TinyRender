@@ -54,7 +54,7 @@ inline void render_triangle(int x0, int y0, int z0,
 	}
 	int xx = y0 == y1 || x0 == x2 ? x0 : (y1 - y0) * static_cast<float>(x2 - x0) / (y2 - y0) + x0;
 	int yx = y1;
-	int zx = 0;
+	int zx = z0 == z2 ? z0 : (z1 - z0) * static_cast<float>(x2 - x0) / (z2 - z0) + z0;
 	if (x1 < xx)
 	{
 		std::swap(xx, x1);
