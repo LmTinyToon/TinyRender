@@ -149,14 +149,24 @@ struct Triangle
 		Params: indices of vertices
 */
 	Triangle(const int i, const int j, const int k) :
-		vertices({ i, j, k })
+		vertices({ i, j, k }), uv_vertices({ 0, 0, 0 })
 	{
+	}
 
+/*
+		Triangle constructor
+		Params: indices of vertices, indices of texture vertices
+*/
+	Triangle(const int i, const int j, const int k, const int i_uv, const int j_uv, const int k_uv) :
+		vertices({ i, j, k }), uv_vertices({ i_uv, j_uv, k_uv })
+	{
 	}
 
 //	Members
 //		Indices of vertices
 	std::array<int, 3> vertices;
+//		Indices of texture vertices
+	std::array<int, 3> uv_vertices;
 };
 
 //		Model class

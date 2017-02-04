@@ -124,19 +124,23 @@ private:
 	{
 		skip_spaces(face_line, pos);
 		const int i = parse_int_number(get_token_str(face_line, pos, '/'));
+		const int i_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
 		
 		//	TODO: (alex) too dirty
 		get_token_str(face_line, pos, ' ');
 		skip_spaces(face_line, pos);
 
 		const int j = parse_int_number(get_token_str(face_line, pos, '/'));
+		const int j_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
 
 		//	TODO: (alex) too dirty
 		get_token_str(face_line, pos, ' ');
 		skip_spaces(face_line, pos);
 
 		const int k = parse_int_number(get_token_str(face_line, pos, '/'));
-		return Triangle(i - 1, j - 1, k - 1);
+		const int k_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
+
+		return Triangle(i - 1, j - 1, k - 1, i_uv - 1, j_uv - 1, k_uv - 1);
 	}
 
 /*
