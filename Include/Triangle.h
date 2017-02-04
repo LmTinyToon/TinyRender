@@ -23,7 +23,7 @@ namespace TinyRender
 			x0 position, y0 position, z0 position, u0 position, v0 position,
 			x1 position, y1 position, z1 position, u1 position, v1 position,
 			x2 position, y2 position, z2 position, u2 position, v2 position,s
-			tga image, texture map, pixel
+			tga image, texture map, pixel, intensity
 		Return: none
 
 */
@@ -31,7 +31,8 @@ inline void render_triangle(int x0, int y0, int z0, int u0, int v0,
 							int x1, int y1, int z1, int u1, int v1,
 							int x2, int y2, int z2, int u2, int v2,
 							TGAImage& image, const TGAImage& texture_map, 
-							std::vector<std::vector<int>>& z_buffer, const TGAImage::Pixel& pixel)
+							std::vector<std::vector<int>>& z_buffer, const TGAImage::Pixel& pixel, 
+							const float intensity)
 {
 	if (y0 == y1 && y1 == y2)
 		return;
@@ -105,7 +106,7 @@ inline void render_triangle(int x0, int y0, int z0, int u0, int v0,
 			float uphi = 0.0;
 			float vphi = 0.0;
 			for (int x = x0 + lhs_dx * alpha; x <= rx; ++x, phi += dz, uphi += du, vphi += dv)
-				image.set_pixel(z_buffer, texture_map.get_pixel(lu + (ru - lu) * uphi, lv + (rv - lv) * vphi), 
+				image.set_pixel(z_buffer, texture_map.get_pixel(lu + (ru - lu) * uphi, lv + (rv - lv) * vphi).mult(intensity), 
 								x, y, lz + (rz - lz) * phi);
 		}
 	}
@@ -142,7 +143,7 @@ inline void render_triangle(int x0, int y0, int z0, int u0, int v0,
 			float uphi = 0.0;
 			float vphi = 0.0;
 			for (int x = xx + lhs_dx * alpha; x <= rx; ++x, phi += dz, uphi += du, vphi += dv)
-				image.set_pixel(z_buffer, texture_map.get_pixel(lu + (ru - lu) * uphi, lv + (rv - lv) * vphi),
+				image.set_pixel(z_buffer, texture_map.get_pixel(lu + (ru - lu) * uphi, lv + (rv - lv) * vphi).mult(intensity),
 					x, y, lz + (rz - lz) * phi);
 		}
 	}

@@ -60,7 +60,7 @@ int main(void)
 										p2x, p2y, p2z, u2x, u2y,
 										p3x, p3y, p3z, u3x, u3y,
 										tga_image, text_map, 
-										z_buffer, pixel.mult(intense));
+										z_buffer, pixel.mult(intense), intense);
 		}
 	}
 	tga_image << out_tga_file;
