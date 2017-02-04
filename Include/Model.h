@@ -201,6 +201,8 @@ private:
 //	Members
 //		Vertices of model
 	vertices_type m_vertices;
+//		Texture vertices
+	vertices_type m_uv_vertices;
 //		Triangles of model
 	triangles_type m_triangles;
 };

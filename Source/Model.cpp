@@ -18,10 +18,10 @@ public:
 //	Constructors/destructors
 /*
 		ObjParser constructor
-		Params: file name, shared geom vertices, shared triangles
+		Params: file name, shared geom vertices, shared texture vertices, shared triangles
 */
-	ObjParser(const string& file_name, vector<Point>& vertices, vector<Triangle>& triangles) : 
-		m_geom_vertices(vertices), m_triangles(triangles)
+	ObjParser(const string& file_name, vector<Point>& vertices, vector<Point>& texture_vertices, vector<Triangle>& triangles) : 
+		m_geom_vertices(vertices), m_uv_vertices(texture_vertices), m_triangles(triangles)
 	{
 		ifstream file_model(file_name);
 		parse_stream(file_model);
@@ -35,6 +35,7 @@ private:
 	{
 		Comment,
 		GeometricVertex,
+		TextureVertex,
 		Face
 	};
 
@@ -55,6 +56,9 @@ private:
 			{
 				case ElementType::GeometricVertex:
 					m_geom_vertices.push_back(parse_geom_vertex(buff, pos));
+				break;
+				case ElementType::TextureVertex:
+					m_uv_vertices.push_back(parse_text_vertex(buff, pos));
 				break;
 				case ElementType::Face:
 					m_triangles.push_back(parse_triangle(buff, pos));
@@ -77,6 +81,8 @@ private:
 			return ElementType::GeometricVertex;
 		if (elem_str == "f")
 			return ElementType::Face;
+		if (elem_str == "vt")
+			return ElementType::TextureVertex;
 		return ElementType::Comment;
 	}
 
@@ -90,6 +96,21 @@ private:
 		array<float, 4> coords;
 		coords[3] = 1.0;
 		for (size_t i = 0; i < 3 && skip_spaces(vertex_line, pos); ++i)
+			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
+		return Point(coords);
+	}
+
+/*
+		Parses texture vertex
+		Params: vertex line, position
+		Return: texture vertex
+*/
+	Point parse_text_vertex(const string& vertex_line, size_t& pos)
+	{
+		array<float, 4> coords;
+		coords[2] = 0.0;
+		coords[3] = 1.0;
+		for (size_t i = 0; i < 2 && skip_spaces(vertex_line, pos); ++i)
 			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
 		return Point(coords);
 	}
@@ -185,15 +206,18 @@ private:
 //	Members
 //		Geometry vertices
 	vector<Point>& m_geom_vertices;
+//		Texture vertices
+	vector<Point>& m_uv_vertices;
 //		Triangles
 	vector<Triangle>& m_triangles;
 };
 
 //	Model - constructors/destructor
 Model::Model(const string& model_name) :
-	m_vertices(), m_triangles()
+	m_vertices(), m_uv_vertices(), m_triangles()
 {
-	ObjParser parser(model_name, m_vertices, m_triangles);
+	
+	ObjParser parser(model_name, m_vertices, m_uv_vertices, m_triangles);
 }
 
 //	TinyReader end namespace
