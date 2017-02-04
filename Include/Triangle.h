@@ -38,23 +38,28 @@ inline void render_triangle(int x0, int y0, int z0,
 	{
 		std::swap(x0, x1);
 		std::swap(y0, y1);
+		std::swap(z0, z1);
 	}
 	if (y0 > y2)
 	{
 		std::swap(x0, x2);
 		std::swap(y0, y2);
+		std::swap(z0, z2);
 	}
 	if (y1 > y2)
 	{
 		std::swap(x1, x2);
 		std::swap(y1, y2);
+		std::swap(z1, z2);
 	}
 	int xx = y0 == y1 || x0 == x2 ? x0 : (y1 - y0) * static_cast<float>(x2 - x0) / (y2 - y0) + x0;
 	int yx = y1;
+	int zx = 0;
 	if (x1 < xx)
 	{
 		std::swap(xx, x1);
 		std::swap(yx, y1);
+		std::swap(zx, z1);
 	}
 	float alpha = 0.0;
 	int seg_height = yx - y0;
