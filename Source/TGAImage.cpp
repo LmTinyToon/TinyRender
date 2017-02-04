@@ -34,6 +34,8 @@ TGAImage::Pixel TGAImage::get_pixel(const int x, const int y) const
 	const int pos = (x + y * m_width)*m_bytes_per_pixel;
 	const int offset = (m_bytes_per_pixel == 4) ? 1 : 0;
 	Pixel pixel;
+	if (pos < 0 || static_cast<int>(m_buffer.size()) <= pos)
+		return pixel;
 	if (m_bytes_per_pixel == 4)
 		memcpy(&pixel.alpha, &m_buffer[pos], 1);
 	memcpy(&pixel.blue,  &m_buffer[pos + 0 + offset], 1);
