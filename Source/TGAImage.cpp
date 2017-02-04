@@ -42,6 +42,16 @@ void TGAImage::set_pixel(const Pixel& pixel, const int x, const int y)
 	memcpy(&m_buffer[pos + 2 + offset], &pixel.red, 1);
 }
 
+void TGAImage::set_pixel(std::vector<std::vector<int>>& z_buffer, const Pixel& pixel,
+	const int x, const int y, const int z)
+{
+	if (z_buffer[y][x] < z)
+	{
+		z_buffer[y][x] = z;
+		set_pixel(pixel, x, y);
+	}
+}
+
 std::ostream& TGAImage::operator<<(std::ostream& os) const
 {
 	{

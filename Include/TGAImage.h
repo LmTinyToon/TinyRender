@@ -121,6 +121,13 @@ public:
 	void set_pixel(const Pixel& pixel, const int x, const int y);
 
 /*
+		Sets pixel at specified position and depth
+		Params: z buffer, pixel, x position, y position
+		Return: void
+*/
+	void set_pixel(std::vector<std::vector<int>>& z_buffer, const Pixel& pixel, const int x, const int y, const int z);
+
+/*
 		Ostream printer method
 		Params: ostream object
 		Return: ostream object
