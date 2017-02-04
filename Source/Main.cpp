@@ -16,6 +16,7 @@ static const int height = 800;
 
 int main(void)
 {
+	std::vector<std::vector<int>> z_buffer(height, std::vector<int>(width, std::numeric_limits<int>::min()));
 	const TinyRender::Point light_vec(0.0, 0.0, -1.0, 0.0);
 	const TinyRender::TGAImage::Pixel pixel(255, 255, 255);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
