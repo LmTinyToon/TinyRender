@@ -12,6 +12,21 @@ TGAImage::TGAImage(const int width, const int height, const ImageFormat image_fo
 {
 }
 
+TGAImage::TGAImage(const std::string& file_name) : 
+	m_width(0), m_height(0), m_bytes_per_pixel(0), m_buffer()
+{
+	std::ifstream is(file_name, std::ios::binary);
+	TGAHeader tga_header(0, 0, 0);
+	is.read((char*)(&tga_header), sizeof(TGAHeader));
+	
+	m_width = tga_header.image_width;
+	m_height = tga_header.image_height;
+	m_bytes_per_pixel = tga_header.image_pixel_depth / 8;
+	m_buffer = std::vector<char>(m_width * m_height * m_bytes_per_pixel, 0);
+
+	is.read(m_buffer.data(), m_buffer.size());
+}
+
 //	TGAImage - methods
 TGAImage::Pixel TGAImage::get_pixel(const int x, const int y) const
 {

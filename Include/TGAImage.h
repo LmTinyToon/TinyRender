@@ -78,6 +78,12 @@ public:
 	explicit TGAImage(const int width, const int height, const ImageFormat image_format);
 
 /*
+		TGAImage constructor
+		Params: file name
+*/
+	explicit TGAImage(const std::string& file_name);
+
+/*
 		TGAImage destructor
 */
 	~TGAImage(void)

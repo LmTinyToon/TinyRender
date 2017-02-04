@@ -20,8 +20,10 @@ int main(void)
 	const TinyRender::Point light_vec(0.0, 0.0, -1.0, 0.0);
 	const TinyRender::TGAImage::Pixel pixel(255, 255, 255);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
-	std::ofstream out_tga_file("../../Temp/TGATEST.tga", std::ios::binary);
 	TinyRender::Model model("../../Models/AfricanHead.obj");
+	TinyRender::TGAImage text_map("../../Model/AfricanHeadDiffuse.tga");
+	std::ofstream out_tga_file("../../Temp/TGATEST.tga", std::ios::binary);
+	
 	for (size_t tr_id = 0; tr_id < model.triangles().size(); ++tr_id)
 	{
 		const TinyRender::Point& p1 = model.vertices()[model.triangles()[tr_id].vertices[0]];
