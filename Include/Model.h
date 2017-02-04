@@ -197,6 +197,16 @@ public:
 	}
 
 /*
+		Gets texture vertices of model
+		Params: none
+		Return: texture vertices of model
+*/
+	inline vertices_type& uv_vertices(void)
+	{
+		return m_uv_vertices;
+	}
+
+/*
 		Gets trianlges of model
 		Params: none
 		Return: triangles of model
