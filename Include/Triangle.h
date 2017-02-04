@@ -27,7 +27,10 @@ namespace TinyRender
 		Return: none
 
 */
-inline void render_triangle(int x0, int y0, int x1, int y1, int x2, int y2, TGAImage& image, const TGAImage::Pixel& pixel)
+inline void render_triangle(int x0, int y0, int z0,
+							int x1, int y1, int z1,
+							int x2, int y2, int z2, 
+							TGAImage& image, std::vector<std::vector<int>>& z_buffer, const TGAImage::Pixel& pixel)
 {
 	if (y0 == y1 && y1 == y2)
 		return;

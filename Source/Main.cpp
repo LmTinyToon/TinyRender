@@ -30,17 +30,23 @@ int main(void)
 
 		const float p1x = (p1.x() + 1) * width / 2;
 		const float p1y = (p1.y() + 1) * height / 2;
+		const float p1z = p1.z();
 		const float p2x = (p2.x() + 1) * width / 2;
 		const float p2y = (p2.y() + 1) * height / 2;
+		const float p2z = p2.z();
 		const float p3x = (p3.x() + 1) * width / 2;
 		const float p3y = (p3.y() + 1) * height / 2;
+		const float p3z = p3.z();
 
 		TinyRender::Point norm_vec = (p3 - p1) ^ (p2 - p1);
 		norm_vec.normalize();
 		const float intense = light_vec * norm_vec;
 		if (intense > 0)
 		{
-			TinyRender::render_triangle(p1x, p1y, p2x, p2y, p3x, p3y, tga_image, pixel.mult(intense));
+			TinyRender::render_triangle(p1x, p1y, p1z, 
+										p2x, p2y, p2z, 
+										p3x, p3y, p3z, 
+										tga_image, z_buffer, pixel.mult(intense));
 		}
 	}
 	tga_image << out_tga_file;
