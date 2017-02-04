@@ -45,7 +45,8 @@ void TGAImage::set_pixel(const Pixel& pixel, const int x, const int y)
 void TGAImage::set_pixel(std::vector<std::vector<int>>& z_buffer, const Pixel& pixel,
 	const int x, const int y, const int z)
 {
-	if (z_buffer[y][x] < z)
+	const bool contains = 0 <= y && y < m_height && 0 <= x && x < m_width;
+	if (contains && z_buffer[y][x] < z)
 	{
 		z_buffer[y][x] = z;
 		set_pixel(pixel, x, y);

@@ -30,13 +30,13 @@ int main(void)
 
 		const float p1x = (p1.x() + 1) * width / 2;
 		const float p1y = (p1.y() + 1) * height / 2;
-		const float p1z = p1.z();
+		const float p1z = (p1.z() + 1) * width;;
 		const float p2x = (p2.x() + 1) * width / 2;
 		const float p2y = (p2.y() + 1) * height / 2;
-		const float p2z = p2.z();
+		const float p2z = (p2.z() + 1) * width;
 		const float p3x = (p3.x() + 1) * width / 2;
 		const float p3y = (p3.y() + 1) * height / 2;
-		const float p3z = p3.z();
+		const float p3z = (p3.z() + 1) * width;
 
 		TinyRender::Point norm_vec = (p3 - p1) ^ (p2 - p1);
 		norm_vec.normalize();

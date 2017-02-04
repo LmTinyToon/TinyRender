@@ -66,13 +66,19 @@ inline void render_triangle(int x0, int y0, int z0,
 	if (seg_height != 0)
 	{
 		const int lhs_dx = xx - x0;
+		const int lhs_dz = zx - z0;
 		const int rhs_dx = x1 - x0;
+		const int rhs_dz = z1 - z0;
 		const float dy = 1.0 / seg_height;
 		for (int y = y0; y <= yx; ++y, alpha += dy)
 		{
 			const int rx = x0 + rhs_dx * alpha;
-			for (int x = x0 + lhs_dx * alpha; x <= rx; ++x)
-				image.set_pixel(pixel, x, y);
+			const int lz = z0 + lhs_dz * alpha;
+			const int rz = z0 + rhs_dz * alpha;
+			const float dz = rz == lz ? 0 : 1.0 / (rz - lz);
+			float phi = 0.0;
+			for (int x = x0 + lhs_dx * alpha; x <= rx; ++x, phi += dz)
+				image.set_pixel(z_buffer, pixel, x, y, lz + (rz - lz) * phi);
 		}
 	}
 	seg_height = y2 - yx;
@@ -80,13 +86,19 @@ inline void render_triangle(int x0, int y0, int z0,
 	if (seg_height != 0)
 	{
 		const int lhs_dx = x2 - xx;
+		const int lhs_dz = z2 - zx;
 		const int rhs_dx = x2 - x1;
+		const int rhs_dz = z2 - z1;
 		const float dy = 1.0 / seg_height;
 		for (int y = yx; y <= y2; ++y, alpha += dy)
 		{
 			const int rx = x1 + rhs_dx * alpha;
-			for (int x = xx + lhs_dx * alpha; x <= rx; ++x)
-				image.set_pixel(pixel, x, y);
+			const int lz = zx + lhs_dz * alpha;
+			const int rz = z1 + rhs_dz * alpha;
+			const float dz = rz == lz ? 0 : 1.0 / (rz - lz);
+			float phi = 0.0;
+			for (int x = xx + lhs_dx * alpha; x <= rx; ++x, phi += dz)
+				image.set_pixel(z_buffer, pixel, x, y, lz + (rz - lz) * phi);
 		}
 	}
 }
