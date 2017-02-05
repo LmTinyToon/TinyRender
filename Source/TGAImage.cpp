@@ -98,22 +98,24 @@ void TGAImage::load_buffer(const TGAImage::TGAHeader& header, std::ifstream& if_
 			//	Parsing compressed pixels
 			for (size_t i = 0; i < m_buffer.size(); )
 			{
-				char id;
-				if_stream.read(&id, 1);
+				int id = if_stream.get();
 				//	8th bit indicates run length data
-				if (id & 128)
+				if (id < 128)
 				{ 
-					if_stream.read(abgr.data(), abgr.size());
-					for (int length = id - 127; length > 0; --length, i += m_bytes_per_pixel)
-						std::copy(abgr.begin(), abgr.end(), m_buffer.begin() + i);
-				}
-				else
-				{
-					for (int length = id + 1; length > 0; --length, i += m_bytes_per_pixel)
+					++id;
+					for (int length = 0; length < id; ++length, i += m_bytes_per_pixel)
 					{
 						if_stream.read(abgr.data(), abgr.size());
 						std::copy(abgr.begin(), abgr.end(), m_buffer.begin() + i);
 					}
+					
+				}
+				else
+				{
+					id -= 127;
+					if_stream.read(abgr.data(), abgr.size());
+					for (int length = 0; length < id; ++length, i += m_bytes_per_pixel)
+						std::copy(abgr.begin(), abgr.end(), m_buffer.begin() + i);
 				}
 			}
 		}
