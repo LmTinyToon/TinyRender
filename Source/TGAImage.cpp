@@ -22,9 +22,8 @@ TGAImage::TGAImage(const std::string& file_name) :
 	m_width = tga_header.image_width;
 	m_height = tga_header.image_height;
 	m_bytes_per_pixel = tga_header.image_pixel_depth / 8;
-	m_buffer = std::vector<char>(m_width * m_height * m_bytes_per_pixel, 0);
-
-	is.read(m_buffer.data(), m_buffer.size());
+	load_buffer(tga_header, is);
+	is.close();
 }
 
 //	TGAImage - methods
@@ -81,6 +80,47 @@ std::ostream& TGAImage::operator<<(std::ostream& os) const
 		os.write(m_buffer.data(), m_buffer.size());
 	}
 	return os;
+}
+
+//	TGAImage - private methods
+void TGAImage::load_buffer(const TGAImage::TGAHeader& header, std::ifstream& if_stream)
+{
+	m_buffer = std::vector<char>(m_width * m_height * m_bytes_per_pixel, 0);
+	switch (header.image_type)
+	{
+		case 2:
+			if_stream.read(m_buffer.data(), m_buffer.size());
+		break;
+		case 10:
+		{
+			
+			std::vector<char> abgr(m_bytes_per_pixel, 0);
+			//	Parsing compressed pixels
+			for (size_t i = 0; i < m_buffer.size(); )
+			{
+				char id;
+				if_stream.read(&id, 1);
+				//	8th bit indicates run length data
+				if (id & 128)
+				{ 
+					if_stream.read(abgr.data(), abgr.size());
+					for (int length = id - 127; length > 0; --length, i += m_bytes_per_pixel)
+						std::copy(abgr.begin(), abgr.end(), m_buffer.begin() + i);
+				}
+				else
+				{
+					for (int length = id + 1; length > 0; --length, i += m_bytes_per_pixel)
+					{
+						if_stream.read(abgr.data(), abgr.size());
+						std::copy(abgr.begin(), abgr.end(), m_buffer.begin() + i);
+					}
+				}
+			}
+		}
+		break;
+		default:
+			throw std::exception("Unsupporting file format");
+	}
 }
 
 //	TinyRender end namespace

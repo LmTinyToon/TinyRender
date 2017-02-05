@@ -184,6 +184,14 @@ private:
 	};
 #pragma pack(pop)
 
+//	Private methods
+/*
+		Loads internally buffer
+		Params: header, ifstream
+		Return: none
+*/
+	void load_buffer(const TGAHeader& header, std::ifstream& if_stream);
+
 //	Private members
 //		Width of image
 	int m_width;
