@@ -63,8 +63,8 @@ inline void render_triangle(int x0, int y0, int z0, int u0, int v0,
 	int xx = y0 == y1 || x0 == x2 ? x0 : (y1 - y0) * static_cast<float>(x2 - x0) / (y2 - y0) + x0;
 	int yx = y1;
 	int zx = z0 == z2 ? z0 : (z1 - z0) * static_cast<float>(x2 - x0) / (z2 - z0) + z0;
-	int ux = u0 == u2 ? u0 : (u1 - u0) * static_cast<float>(v2 - v0) / (u2 - u0) + u0;
-	int vx = v0 == v2 ? v0 : (v1 - v0) * static_cast<float>(u2 - u0) / (v2 - v0) + v0;
+	int ux = v1 == v2 ? u2 : (v1 - v0) * static_cast<float>(u2 - u0) / (v2 - v0) + u0;
+	int vx = v1;
 	if (x1 < xx)
 	{
 		std::swap(xx, x1);
