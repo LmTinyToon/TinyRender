@@ -36,6 +36,13 @@ public:
 	EngineManager(void);
 
 //	Methods
+/*	
+		Transforms point
+		Params: model point
+		Return: screen point
+*/
+	Vec3i transform(const Vec3f& model_point) const;
+
 /*
 		Sets viewport
 		Params: left top coordinates, sizes

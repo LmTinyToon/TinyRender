@@ -20,6 +20,19 @@ EngineManager::EngineManager(void) :
 }
 
 //	EngineManager - public methods
+Vec3i EngineManager::transform(const Vec3f& model_point) const
+{
+	Vec4f mod_point;
+	for (int i = 0; i < 3; ++i)
+		mod_point[i] = model_point[i];
+	mod_point[3] = 1.0;
+	const Vec4f& converted_point = m_viewport * m_matrices[2] * m_matrices[1] * m_matrices[0] * mod_point;
+	Vec3f screen_point;
+	for (int i = 0; i < 3; ++i)
+		screen_point[i] = converted_point[i];
+	return convert(screen_point);
+}
+
 void EngineManager::set_viewport(const int x, const int y, const int width, const int height)
 {
 	const float w2 = width / 2.0;
