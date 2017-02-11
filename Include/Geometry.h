@@ -39,7 +39,7 @@ public:
 		data_type data;
 		for (size_t i = 0; i < _Dim; ++i)
 			for (size_t j = 0; j < _Dim; ++j)
-				data[i][j] = (i == j) ? 1 : 0;
+				data[i][j] = (i == j) ? 1.0 : 0.0;
 		return self_type(data);
 	}
 

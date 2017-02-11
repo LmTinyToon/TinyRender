@@ -3,6 +3,7 @@
 #define TINY_RENDER_ENGINE_MANAGER_INCLUDED_H__
 
 //	Std includes
+#include <array>
 
 //	Includes
 #include "Geometry.h"
@@ -17,6 +18,47 @@ namespace TinyRender
 //		EngineManager class
 class EngineManager
 {
+public:
+//	Enums/constans
+//		Matrix mode
+	enum class MatrixMode
+	{
+		MODEL = 0,
+		VIEW = 1,
+		PROJECTIVE = 2
+	};
+
+//	Constructors/destructors
+/*
+		EngineManager constructor
+		Params: none
+*/
+	EngineManager(void);
+
+//	Methods
+/*
+		Changes mode of engine
+		Params: mode
+		Return: current matrix
+*/
+	Matr4f& set_mode(const MatrixMode mode);
+
+/*
+		Gets current matrix
+		Params: none
+		Return: current matrix
+*/
+	Matr4f& get_matrix(void);
+private:
+//	Private methods
+
+//	Members
+//		Current mode
+	MatrixMode m_mode;
+//		Matrices
+	std::array<Matr4f, 3> m_matrices;
+//		Viewport matrix
+	Matr4f m_viewport;
 };
 
 //	Global functions
