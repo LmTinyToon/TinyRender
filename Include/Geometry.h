@@ -13,6 +13,43 @@ namespace TinyRender
 //	Constants/enums
 
 //	Global classes
+//		Vector class
+template <typename _Ty, size_t _Dim>
+class Vector
+{
+//		Num type
+	typedef _Ty num_type;
+//		Data type
+	typedef std::array<num_type, _Dim> data_type;
+
+//	Constructors/destructor
+
+//	Methods
+/*
+		Item getter
+		Params: Item index
+		Return: Item
+*/
+	num_type& operator[](const int row)
+	{
+		return m_data[row];
+	}
+
+/*
+		Item const getter
+		Params: Item index
+		Return: const Item
+*/
+	const num_type& operator[](const int row) const
+	{
+		return m_data[row];
+	}
+public:
+private:
+//		Vector data
+	data_type m_data;
+};
+
 //		Matrix class
 template <typename _Ty, size_t _Dim>
 class Matrix
@@ -26,6 +63,8 @@ public:
 //	Classes
 //		Self type
 	typedef Matrix<num_type, _Dim> self_type;
+//		Vector type
+	typedef Vector<num_type, _Dim> vec_type;
 
 //	Constructors
 //		Static methods
@@ -63,6 +102,23 @@ public:
 	}
 
 /*
+		Multiplies matrix by vector
+		Params: vector
+		Return: vector
+*/
+	vec_type operator*(const vec_type& vec) const
+	{
+		vec_type res;
+		for (size_t i = 0; i < _Dim; ++i)
+		{
+			res[i] = num_type();
+			for (size_t j = 0; j < _Dim; ++j)
+				res[j] += m_data[i][j] * vec[j];
+		}
+		return res;
+	}
+
+/*
 		Row getter
 		Params: row index
 		Return: row
@@ -97,7 +153,16 @@ private:
 	data_type m_data;
 };
 
+//	Classes
+//		Vec3i class
+typedef Vector<int, 3> Vec3i;
+//		Vec3f class
+typedef Vector<float, 3> Vec3f;
+//		Vec4f class
+typedef Vector<float, 4> Vec4f;
+//		Matr4f class
 typedef Matrix<float, 4> Matr4f;
+
 
 //	Global functions
 /*
