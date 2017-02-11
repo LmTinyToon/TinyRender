@@ -62,6 +62,26 @@ public:
 		return self_type(data);
 	}
 
+/*
+		Row getter
+		Params: row index
+		Return: row
+*/
+	std::array<num_type, _Dim>& operator[](const int row)
+	{
+		return m_data[row];
+	}
+
+/*
+		Row const getter
+		Params: row index
+		Return: const row
+*/
+	const std::array<num_type, _Dim>& operator[](const int row) const
+	{
+		return m_data[row];
+	}
+
 private:
 //	Private constructors
 /*	
