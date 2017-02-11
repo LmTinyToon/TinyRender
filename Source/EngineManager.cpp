@@ -20,6 +20,14 @@ EngineManager::EngineManager(void) :
 }
 
 //	EngineManager - public methods
+void EngineManager::set_viewport(const int x, const int y, const int width, const int height)
+{
+	const float w2 = width / 2.0;
+	const float h2 = height / 2.0;
+	scale(m_viewport, w2, h2, 1.0);
+	translate(m_viewport, x + w2, y + h2, 0.0);
+}
+
 Matr4f& EngineManager::set_mode(const MatrixMode mode)
 {
 	m_mode = mode;

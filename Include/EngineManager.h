@@ -37,6 +37,13 @@ public:
 
 //	Methods
 /*
+		Sets viewport
+		Params: left top coordinates, sizes
+		Return: none
+*/
+	void set_viewport(const int x, const int y, const int width, const int height);
+
+/*
 		Changes mode of engine
 		Params: mode
 		Return: current matrix

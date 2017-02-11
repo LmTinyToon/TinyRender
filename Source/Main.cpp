@@ -7,6 +7,7 @@
 #include "Line.h"
 #include "Triangle.h"
 #include "Model.h"
+#include "EngineManager.h"
 
 //	Constants/enums
 //	Width of image
@@ -16,6 +17,10 @@ static const int height = 800;
 
 int main(void)
 {
+	//	Engine initialization
+	TinyRender::EngineManager engine;
+	engine.set_viewport(0, 0, width, height);
+
 	std::vector<std::vector<int>> z_buffer(height, std::vector<int>(width, std::numeric_limits<int>::min()));
 	const TinyRender::Point light_vec(0.0, 0.0, -1.0, 0.0);
 	const TinyRender::TGAImage::Pixel pixel(255, 255, 255);
