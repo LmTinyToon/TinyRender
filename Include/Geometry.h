@@ -77,6 +77,8 @@ private:
 	data_type m_data;
 };
 
+typedef Matrix<float, 4> Matr4f;
+
 //	Global functions
 
 //	TinyRender end namespace

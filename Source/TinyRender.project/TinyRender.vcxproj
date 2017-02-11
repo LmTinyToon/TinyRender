@@ -11,11 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\EngineManager.cpp" />
     <ClCompile Include="..\Main.cpp" />
     <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\TGAImage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Include\EngineManager.h" />
     <ClInclude Include="..\..\Include\Geometry.h" />
     <ClInclude Include="..\..\Include\Line.h" />
     <ClInclude Include="..\..\Include\Model.h" />
