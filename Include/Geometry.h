@@ -228,6 +228,13 @@ Matr4f& scale(Matr4f& m, const float sx, const float sy, const float sz);
 */
 Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz);
 
+/*		
+		Converts float vector to integer
+		Params: float vector 
+		Return: integer vector
+*/
+Vec3i convert(const Vec3f& vec);
+
 //	TinyRender end namespace
 };
 

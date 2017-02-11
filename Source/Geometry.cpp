@@ -38,5 +38,13 @@ Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz)
 	throw exception("Rotation of matrix is not implemented!");
 }
 
+Vec3i convert(const Vec3f& vec)
+{
+	Vec3i res;
+	for (int i = 0; i < 3; ++i)
+		res[i] = static_cast<int>(vec[3]);
+	return res;
+}
+
 //	TinyReader end namespace
 };
