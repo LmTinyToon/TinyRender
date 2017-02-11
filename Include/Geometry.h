@@ -69,6 +69,41 @@ public:
 	}
 
 /*
+		Performs scalar production
+		Params: rhs vector
+		Return: scalar producation
+*/
+	num_type operator*(const self_type& rhs) const
+	{
+		num_type res = num_type();
+		for (size_t i = 0; i < _Dim; ++i)
+			res += m_data[i] * rhs[i];
+		return res;
+	}
+
+/*
+		Computes length of vector
+		Params: none
+		Return: length
+*/
+	num_type length(void) const
+	{
+		return sqrt((*this) * (*this));
+	}
+
+/*
+		Performs normalization
+		Params: none
+		Return: none
+*/
+	void normalize(void)
+	{
+		const num_type len = length();
+		for (int i = 0; i < _Dim; ++i)
+			m_data[i] /= len;
+	}
+
+/*
 		Item getter
 		Params: Item index
 		Return: Item
@@ -109,6 +144,14 @@ public:
 	typedef Vector<num_type, _Dim> vec_type;
 
 //	Constructors
+/*
+		Matrix default constructor
+*/
+	Matrix() : 
+		m_data()
+	{
+	}
+
 //		Static methods
 /*
 		Computes identity matrix
@@ -132,15 +175,15 @@ public:
 */
 	self_type operator*(const self_type& rhs) const
 	{
-		data_type data;
+		self_type res;
 		for (size_t i = 0; i < _Dim; ++i)
 			for (size_t j = 0; j < _Dim; ++j)
 			{
-				data[i][j] = num_type();
+				res[i][j] = num_type();
 				for (size_t k = 0; k < _Dim; ++k)
-					data[i][j] += data[i][k] * data[k][j];
+					res[i][j] += m_data[i][k] * rhs[k][j];
 			}
-		return self_type(data);
+		return res;
 	}
 
 /*
@@ -155,7 +198,7 @@ public:
 		{
 			res[i] = num_type();
 			for (size_t j = 0; j < _Dim; ++j)
-				res[j] += m_data[i][j] * vec[j];
+				res[i] += m_data[i][j] * vec[j];
 		}
 		return res;
 	}
@@ -234,6 +277,13 @@ Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz);
 		Return: integer vector
 */
 Vec3i convert(const Vec3f& vec);
+
+/*
+		Computes vector production
+		Params: lhs vector, rhs vector
+		Return: result vector
+*/
+Vec3f vector_product(const Vec3f& lhs, const Vec3f& rhs);
 
 //	TinyRender end namespace
 };

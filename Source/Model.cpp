@@ -15,12 +15,18 @@ namespace TinyRender
 class ObjParser
 {
 public:
+//	Classes
+//		Vertex type
+	typedef Vec3f vertex_type;
+//		Vertices type
+	typedef vector<vertex_type> vertices_type;
+
 //	Constructors/destructors
 /*
 		ObjParser constructor
 		Params: file name, shared geom vertices, shared texture vertices, shared triangles
 */
-	ObjParser(const string& file_name, vector<Point>& vertices, vector<Point>& texture_vertices, vector<Triangle>& triangles) : 
+	ObjParser(const string& file_name, vertices_type& vertices, vertices_type& texture_vertices, vector<Triangle>& triangles) :
 		m_geom_vertices(vertices), m_uv_vertices(texture_vertices), m_triangles(triangles)
 	{
 		ifstream file_model(file_name);
@@ -91,13 +97,12 @@ private:
 		Params: vertex line, position
 		Return: geometric vertex
 */
-	Point parse_geom_vertex(const string& vertex_line, size_t& pos)
+	vertex_type parse_geom_vertex(const string& vertex_line, size_t& pos)
 	{
-		array<float, 4> coords;
-		coords[3] = 1.0;
+		vertex_type res;
 		for (size_t i = 0; i < 3 && skip_spaces(vertex_line, pos); ++i)
-			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
-		return Point(coords);
+			res[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
+		return res;
 	}
 
 /*
@@ -105,14 +110,12 @@ private:
 		Params: vertex line, position
 		Return: texture vertex
 */
-	Point parse_text_vertex(const string& vertex_line, size_t& pos)
+	vertex_type parse_text_vertex(const string& vertex_line, size_t& pos)
 	{
-		array<float, 4> coords;
-		coords[2] = 0.0;
-		coords[3] = 1.0;
+		vertex_type res;
 		for (size_t i = 0; i < 2 && skip_spaces(vertex_line, pos); ++i)
-			coords[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
-		return Point(coords);
+			res[i] = parse_float_number(get_token_str(vertex_line, pos, ' '));
+		return res;
 	}
 
 /*
@@ -209,9 +212,9 @@ private:
 
 //	Members
 //		Geometry vertices
-	vector<Point>& m_geom_vertices;
+	vertices_type& m_geom_vertices;
 //		Texture vertices
-	vector<Point>& m_uv_vertices;
+	vertices_type& m_uv_vertices;
 //		Triangles
 	vector<Triangle>& m_triangles;
 };

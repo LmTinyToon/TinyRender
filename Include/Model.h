@@ -8,6 +8,7 @@
 #include <array>
 
 //	Includes
+#include "Geometry.h"
 
 //	TinyRender namespace 
 namespace TinyRender
@@ -175,7 +176,7 @@ class Model
 public:
 //	Classes
 //		vertices type
-	typedef std::vector<Point> vertices_type;
+	typedef std::vector<Vec3f> vertices_type;
 //		triangles type
 	typedef std::vector<Triangle> triangles_type;
 
