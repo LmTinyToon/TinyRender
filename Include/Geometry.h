@@ -265,11 +265,11 @@ Matr4f& translate(Matr4f& m, const float x, const float y, const float z);
 Matr4f& scale(Matr4f& m, const float sx, const float sy, const float sz);
 
 /*
-		Rotates matrix within axes
-		Params: matrix, x rot angle, y rot angle, z rot angle
+		Rotates matrix around axe
+		Params: matrix, angle, x, y, z
 		Return: changed matrix
 */
-Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz);
+Matr4f& rotate(Matr4f& m, const float phi, const float x, const float y, const float z);
 
 /*		
 		Converts float vector to integer

@@ -29,13 +29,35 @@ Matr4f& scale(Matr4f& m, const float sx, const float sy, const float sz)
 	return m;
 }
 
-Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz)
+Matr4f& rotate(Matr4f& m, const float phi, const float x, const float y, const float z)
 {
-	(void*)&m;
-	(void*)&px;
-	(void*)&py;
-	(void*)&pz;
-	throw exception("Rotation of matrix is not implemented!");
+	const float c = cos(phi);
+	const float _1_c = 1.0 - c;
+	const float s = sin(phi);
+
+	Matr4f rot_matr;
+	rot_matr[0][0] = x * x * _1_c + c;
+	rot_matr[1][0] = x * y * _1_c + z * s;
+	rot_matr[2][0] = x * z * _1_c - y * s;
+	rot_matr[3][0] = 0.0;
+
+	rot_matr[0][1] = x * y * _1_c - z * s;
+	rot_matr[1][1] = y * y * _1_c + c;
+	rot_matr[2][1] = y * z * _1_c + x * s;
+	rot_matr[3][1] = 0.0;
+
+	rot_matr[0][2] = x * z * _1_c + y * s;
+	rot_matr[1][2] = y * z * _1_c - z * s;
+	rot_matr[2][2] = z * z * _1_c + c;
+	rot_matr[3][2] = 0.0;
+
+	rot_matr[0][3] = 0.0;
+	rot_matr[1][3] = 0.0;
+	rot_matr[2][3] = 0.0;
+	rot_matr[3][3] = 1.0;
+
+	*(&m) = m * rot_matr;
+	return m;
 }
 
 Vec3i convert(const Vec3f& vec)
