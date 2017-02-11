@@ -28,6 +28,13 @@ void EngineManager::set_viewport(const int x, const int y, const int width, cons
 	translate(m_viewport, x + w2, y + h2, 0.0);
 }
 
+void EngineManager::set_depth(const int depth)
+{
+	const float d2 = depth / 2.0;
+	scale(m_viewport, 1.0, 1.0, d2);
+	translate(m_viewport, 0.0, 0.0, d2);
+}
+
 Matr4f& EngineManager::set_mode(const MatrixMode mode)
 {
 	m_mode = mode;

@@ -44,6 +44,13 @@ public:
 	void set_viewport(const int x, const int y, const int width, const int height);
 
 /*
+		Sets depth
+		Params: depth
+		Return: none
+*/
+	void set_depth(const int depth);
+
+/*
 		Changes mode of engine
 		Params: mode
 		Return: current matrix
