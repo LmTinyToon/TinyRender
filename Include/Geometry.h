@@ -100,6 +100,26 @@ private:
 typedef Matrix<float, 4> Matr4f;
 
 //	Global functions
+/*
+		Translate matrix along axes
+		Params: matrix, x offset, y offset, z offset
+		Return: changed matrix
+*/
+Matr4f& translate(Matr4f& m, const float x, const float y, const float z);
+
+/*
+		Scales matrix along axes
+		Params: matrix, x scale, y scale, z scale
+		Return: changed matrix
+*/
+Matr4f& scale(Matr4f& m, const float sx, const float sy, const float sz);
+
+/*
+		Rotates matrix within axes
+		Params: matrix, x rot angle, y rot angle, z rot angle
+		Return: changed matrix
+*/
+Matr4f& rotate(Matr4f& m, const float px, const float py, const float pz);
 
 //	TinyRender end namespace
 };
