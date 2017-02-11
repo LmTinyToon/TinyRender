@@ -21,10 +21,53 @@ class Vector
 	typedef _Ty num_type;
 //		Data type
 	typedef std::array<num_type, _Dim> data_type;
+public:
+//	Classes 
+//		Self type
+	typedef Vector<num_type, _Dim> self_type;
 
 //	Constructors/destructor
 
 //	Methods
+/*
+		Multiplies vector by factor
+		Params: factor
+		Return: vector
+*/
+	self_type operator*(const num_type f) const
+	{
+		self_type res;
+		for (size_t i = 0; i < _Dim; ++i)
+			res[i] = m_data[i] * f;
+		return res;
+	}
+
+/*
+		Substract vector from vector
+		Params: rhs vector
+		Return: vector
+*/
+	self_type operator-(const self_type& rhs) const
+	{
+		self_type res;
+		for (size_t i = 0; i < _Dim; ++i)
+			res[i] = m_data[i] - rhs[i];
+		return res;
+	}
+
+/*
+		Adds vector from vector
+		Params: rhs vector
+		Return: vector
+*/
+	self_type operator+(const self_type& rhs) const
+	{
+		self_type res;
+		for (size_t i = 0; i < _Dim; ++i)
+			res[i] = m_data[i] + rhs[i];
+		return res;
+	}
+
 /*
 		Item getter
 		Params: Item index
@@ -44,7 +87,6 @@ class Vector
 	{
 		return m_data[row];
 	}
-public:
 private:
 //		Vector data
 	data_type m_data;
