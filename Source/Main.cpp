@@ -25,7 +25,6 @@ int main(void)
 	std::vector<std::vector<int>> z_buffer(height, std::vector<int>(width, std::numeric_limits<int>::min()));
 	TinyRender::Vec3f light_vec;
 	light_vec[0] = 0.0; light_vec[1] = 0.0; light_vec[2] = -1.0;
-	const TinyRender::TGAImage::Pixel pixel(255, 255, 255);
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
 	TinyRender::Model model("../../Models/AfricanHead.obj");
 	TinyRender::TGAImage text_map("../../Models/AfricanHeadDiffuse.tga");
@@ -62,8 +61,7 @@ int main(void)
 			TinyRender::render_triangle(p1i[0], p1i[1], p1i[2], u1x, u1y, 
 										p2i[0], p2i[1], p2i[2], u2x, u2y,
 										p3i[0], p3i[1], p3i[2], u3x, u3y,
-										tga_image, text_map, 
-										z_buffer, pixel.mult(intense), intense);
+										tga_image, text_map, z_buffer, intense);
 		}
 	}
 	tga_image << out_tga_file;

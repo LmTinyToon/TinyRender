@@ -23,7 +23,7 @@ namespace TinyRender
 			x0 position, y0 position, z0 position, u0 position, v0 position,
 			x1 position, y1 position, z1 position, u1 position, v1 position,
 			x2 position, y2 position, z2 position, u2 position, v2 position,s
-			tga image, texture map, pixel, intensity
+			tga image, texture map, intensity
 		Return: none
 
 */
@@ -31,8 +31,7 @@ inline void render_triangle(int x0, int y0, int z0, int u0, int v0,
 							int x1, int y1, int z1, int u1, int v1,
 							int x2, int y2, int z2, int u2, int v2,
 							TGAImage& image, const TGAImage& texture_map, 
-							std::vector<std::vector<int>>& z_buffer, const TGAImage::Pixel& pixel, 
-							const float intensity)
+							std::vector<std::vector<int>>& z_buffer, const float intensity)
 {
 	if (y0 == y1 && y1 == y2)
 		return;
