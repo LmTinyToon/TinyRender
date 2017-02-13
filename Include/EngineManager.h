@@ -131,6 +131,21 @@ public:
 		Return: current matrix
 */
 	Matr4f& get_matrix(void);
+
+/*
+		Sets light direction
+		Params: light direction
+		Return: none
+*/
+	void set_light_direction(const Vec3f& light_dir);
+
+/*
+		Gets light position
+		Params: none
+		Return: light position
+*/
+	const Vec3f& get_light_direction(void) const;
+
 private:
 //	Private methods
 
@@ -141,6 +156,8 @@ private:
 	std::array<Matr4f, 3> m_matrices;
 //		Viewport matrix
 	Matr4f m_viewport;
+//		Light direction
+	Vec3f m_light_dir;
 };
 
 //	Global functions

@@ -15,8 +15,10 @@ namespace TinyRender
 //		EngineManager constructors/destructors
 EngineManager::EngineManager(void) : 
 	m_mode(MatrixMode::MODEL), m_matrices({ Matr4f::identity(), Matr4f::identity(), Matr4f::identity() }),
-	m_viewport(Matr4f::identity())
+	m_viewport(Matr4f::identity()), m_light_dir()
 {
+	//	TODO: (alex) simpify api!!!
+	m_light_dir[0] = 0.0; m_light_dir[1] = 0.0; m_light_dir[2] = 0.0;
 }
 
 //	EngineManager - public methods
@@ -58,6 +60,16 @@ Matr4f& EngineManager::get_matrix(void)
 {
 	return m_matrices[static_cast<int>(m_mode)];
 }	
+
+void EngineManager::set_light_direction(const Vec3f& light_dir)
+{
+	m_light_dir = light_dir;
+}
+
+const Vec3f& EngineManager::get_light_direction(void) const
+{
+	return m_light_dir;
+}
 
 //	EngineManager - private methods
 

@@ -23,12 +23,14 @@ int main(void)
 	TinyRender::EngineManager engine;
 	engine.set_viewport(0, 0, width, height);
 	engine.set_depth(width);
+	//	TODO: (alxe) simplify api!!
+	TinyRender::Vec3f light_vec;
+	light_vec[0] = 0.0; light_vec[1] = 0.0; light_vec[2] = -1.0;
+	engine.set_light_direction(light_vec);
 	//	Shader creation
 	std::unique_ptr<TinyRender::Shader> shader = std::make_unique<TinyRender::DummyShader>(engine);
 
 	std::vector<std::vector<int>> z_buffer(height, std::vector<int>(width, std::numeric_limits<int>::min()));
-	TinyRender::Vec3f light_vec;
-	light_vec[0] = 0.0; light_vec[1] = 0.0; light_vec[2] = -1.0;
 	TinyRender::TGAImage tga_image(width, height, TinyRender::TGAImage::ImageFormat_RGB);
 	TinyRender::Model model("../../Models/AfricanHead.obj");
 	TinyRender::TGAImage text_map("../../Models/AfricanHeadDiffuse.tga");
