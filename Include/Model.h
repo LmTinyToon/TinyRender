@@ -68,7 +68,7 @@ public:
 		Params: none
 		Return: vertices of model
 */
-	inline vertices_type& vertices(void)
+	inline const vertices_type& vertices(void) const
 	{
 		return m_vertices;
 	}
@@ -78,7 +78,7 @@ public:
 		Params: none
 		Return: texture vertices of model
 */
-	inline vertices_type& uv_vertices(void)
+	inline const vertices_type& uv_vertices(void) const
 	{
 		return m_uv_vertices;
 	}
@@ -88,7 +88,7 @@ public:
 		Params: none
 		Return: triangles of model
 */
-	inline triangles_type& triangles(void)
+	inline const triangles_type& triangles(void) const
 	{
 		return m_triangles;
 	}
