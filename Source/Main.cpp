@@ -1,6 +1,7 @@
 //	Std includes
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 //	Local includes
 #include "TGAImage.h"
@@ -8,6 +9,7 @@
 #include "Triangle.h"
 #include "Model.h"
 #include "EngineManager.h"
+#include "Shaders.h"
 
 //	Constants/enums
 //	Width of image
@@ -21,6 +23,8 @@ int main(void)
 	TinyRender::EngineManager engine;
 	engine.set_viewport(0, 0, width, height);
 	engine.set_depth(width);
+	//	Shader creation
+	std::unique_ptr<TinyRender::Shader> shader = std::make_unique<TinyRender::DummyShader>(engine);
 
 	std::vector<std::vector<int>> z_buffer(height, std::vector<int>(width, std::numeric_limits<int>::min()));
 	TinyRender::Vec3f light_vec;
@@ -30,8 +34,12 @@ int main(void)
 	TinyRender::TGAImage text_map("../../Models/AfricanHeadDiffuse.tga");
 	std::ofstream out_tga_file("../../Temp/TGATEST.tga", std::ios::binary);
 	
+	//	Buffer of screen points
+	std::array<TinyRender::Vec3i, 3> screen_points;
+
 	for (size_t tr_id = 0; tr_id < model.triangles().size(); ++tr_id)
 	{
+
 		const TinyRender::Vec3f& p1 = model.vertices()[model.triangles()[tr_id].vertices[0]];
 		const TinyRender::Vec3f& uv1 = model.uv_vertices()[model.triangles()[tr_id].uv_vertices[0]];
 		const TinyRender::Vec3f& p2 = model.vertices()[model.triangles()[tr_id].vertices[1]];
