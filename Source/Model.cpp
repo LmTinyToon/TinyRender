@@ -24,10 +24,13 @@ public:
 //	Constructors/destructors
 /*
 		ObjParser constructor
-		Params: file name, shared geom vertices, shared texture vertices, shared triangles
+		Params: file name, shared geom vertices, 
+				shared texture vertices, shared normals, shared triangles
 */
-	ObjParser(const string& file_name, vertices_type& vertices, vertices_type& texture_vertices, vector<Triangle>& triangles) :
-		m_geom_vertices(vertices), m_uv_vertices(texture_vertices), m_triangles(triangles)
+	ObjParser(const string& file_name, vertices_type& vertices, 
+			vertices_type& texture_vertices, vertices_type& normals, vector<Triangle>& triangles) :
+		m_geom_vertices(vertices), m_uv_vertices(texture_vertices), 
+		m_normals(normals), m_triangles(triangles)
 	{
 		ifstream file_model(file_name);
 		parse_stream(file_model);
@@ -42,6 +45,7 @@ private:
 		Comment,
 		GeometricVertex,
 		TextureVertex,
+		Normal,
 		Face
 	};
 
@@ -62,6 +66,9 @@ private:
 			{
 				case ElementType::GeometricVertex:
 					m_geom_vertices.push_back(parse_geom_vertex(buff, pos));
+				break;
+				case ElementType::Normal:
+					m_normals.push_back(parse_geom_vertex(buff, pos));
 				break;
 				case ElementType::TextureVertex:
 					m_uv_vertices.push_back(parse_text_vertex(buff, pos));
@@ -128,22 +135,21 @@ private:
 		skip_spaces(face_line, pos);
 		const int i = parse_int_number(get_token_str(face_line, pos, '/'));
 		const int i_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
+		const int i_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
 		
-		//	TODO: (alex) too dirty
-		get_token_str(face_line, pos, ' ');
 		skip_spaces(face_line, pos);
-
 		const int j = parse_int_number(get_token_str(face_line, pos, '/'));
 		const int j_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
+		const int j_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
 
-		//	TODO: (alex) too dirty
-		get_token_str(face_line, pos, ' ');
 		skip_spaces(face_line, pos);
-
 		const int k = parse_int_number(get_token_str(face_line, pos, '/'));
 		const int k_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
+		const int k_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
 
-		return Triangle(i - 1, j - 1, k - 1, i_uv - 1, j_uv - 1, k_uv - 1);
+		return Triangle(i - 1, j - 1, k - 1, 
+						i_uv - 1, j_uv - 1, k_uv - 1, 
+						i_n - 1, j_n - 1, k_n - 1);
 	}
 
 /*
@@ -215,16 +221,18 @@ private:
 	vertices_type& m_geom_vertices;
 //		Texture vertices
 	vertices_type& m_uv_vertices;
+//		Normals
+	vertices_type& m_normals;
 //		Triangles
 	vector<Triangle>& m_triangles;
 };
 
 //	Model - constructors/destructor
 Model::Model(const string& model_name) :
-	m_vertices(), m_uv_vertices(), m_triangles()
+	m_vertices(), m_uv_vertices(), m_normals(), m_triangles()
 {
 	
-	ObjParser parser(model_name, m_vertices, m_uv_vertices, m_triangles);
+	ObjParser parser(model_name, m_vertices, m_uv_vertices, m_normals, m_triangles);
 }
 
 //	TinyReader end namespace

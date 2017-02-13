@@ -32,10 +32,12 @@ struct Triangle
 
 /*
 		Triangle constructor
-		Params: indices of vertices, indices of texture vertices
+		Params: indices of vertices, indices of texture vertices, indices of normals
 */
-	Triangle(const int i, const int j, const int k, const int i_uv, const int j_uv, const int k_uv) :
-		vertices({ i, j, k }), uv_vertices({ i_uv, j_uv, k_uv })
+	Triangle(const int i, const int j, const int k, 
+			 const int i_uv, const int j_uv, const int k_uv,
+			 const int i_n, const int j_n, const int k_n) :
+		vertices({ i, j, k }), uv_vertices({ i_uv, j_uv, k_uv }), normals({ i_n, j_n, k_n })
 	{
 	}
 
@@ -44,6 +46,8 @@ struct Triangle
 	std::array<int, 3> vertices;
 //		Indices of texture vertices
 	std::array<int, 3> uv_vertices;
+//		Indices of normals
+	std::array<int, 3> normals;
 };
 
 //		Model class
@@ -100,6 +104,8 @@ private:
 	vertices_type m_vertices;
 //		Texture vertices
 	vertices_type m_uv_vertices;
+//		Normals of model
+	vertices_type m_normals;
 //		Triangles of model
 	triangles_type m_triangles;
 };
