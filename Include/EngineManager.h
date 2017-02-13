@@ -15,6 +15,67 @@ namespace TinyRender
 //	Constants/enums
 
 //	Global classes
+//		EngineManager forward declaration class
+class EngineManager;
+//		Model forward declaration class
+class Model;
+//		Pixel forward declaration class
+class Pixel;
+
+//		Shader class
+class Shader
+{
+public:
+//	Constructors/destructors
+/*
+		IShader constructor
+		Params: engine manager
+*/
+	Shader(EngineManager& engine) : 
+		m_engine(engine)
+	{
+	}
+
+/*
+		IShader destructor
+*/
+	virtual ~Shader(void)
+	{
+	}
+
+//	Methods
+/*
+		Vertex producer
+		Params: model, index of face, index of vertex
+		Return: screen vertex
+*/
+	virtual Vec3i vertex(const Model& model, const int face_id, const int vertex_id) = 0;
+
+/*
+		Color producer
+		Params: pixel 
+		Return: production result
+*/
+	virtual bool color(Pixel& pixel) = 0;
+
+protected:
+//	Protected methods
+/*
+		Engine manager getter
+		Params: none
+		Return: engine manager
+*/
+	EngineManager& get_engine(void)
+	{
+		return m_engine;
+	}
+
+private:
+//	Members
+//		EngineManager class
+	EngineManager& m_engine;
+};
+
 //		EngineManager class
 class EngineManager
 {
