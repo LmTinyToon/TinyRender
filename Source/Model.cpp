@@ -132,24 +132,19 @@ private:
 */
 	Triangle parse_triangle(const string& face_line, size_t& pos)
 	{
-		skip_spaces(face_line, pos);
-		const int i = parse_int_number(get_token_str(face_line, pos, '/'));
-		const int i_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
-		const int i_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
-		
-		skip_spaces(face_line, pos);
-		const int j = parse_int_number(get_token_str(face_line, pos, '/'));
-		const int j_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
-		const int j_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
-
-		skip_spaces(face_line, pos);
-		const int k = parse_int_number(get_token_str(face_line, pos, '/'));
-		const int k_uv = parse_int_number(get_token_str(face_line, ++pos, '/'));
-		const int k_n = parse_int_number(get_token_str(face_line, ++pos, ' '));
-
-		return Triangle(i - 1, j - 1, k - 1, 
-						i_uv - 1, j_uv - 1, k_uv - 1, 
-						i_n - 1, j_n - 1, k_n - 1);
+		Vec3i vertices;
+		Vec3i uv_vertices;
+		Vec3i normals;
+		for (int i = 0; i < 2; ++i)
+		{
+			skip_spaces(face_line, pos);
+			vertices[i] = parse_int_number(get_token_str(face_line, pos, '/'));
+			uv_vertices[i] = parse_int_number(get_token_str(face_line, ++pos, '/'));
+			normals[i] = parse_int_number(get_token_str(face_line, ++pos, ' '));
+		}
+		return Triangle(vertices[0] - 1, vertices[1] - 1, vertices[2] - 1,
+						uv_vertices[0] - 1, uv_vertices[1] - 1, uv_vertices[2] - 1,
+						normals[0] - 1, normals[1] - 1, normals[2] - 1);
 	}
 
 /*

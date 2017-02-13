@@ -88,6 +88,16 @@ public:
 	}
 
 /*
+		Gets normals of model
+		Params: none
+		Return: normals of model
+*/
+	inline const vertices_type& normals(void) const
+	{
+		return m_normals;
+	}
+
+/*
 		Gets trianlges of model
 		Params: none
 		Return: triangles of model
