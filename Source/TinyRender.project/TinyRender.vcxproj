@@ -15,6 +15,7 @@
     <ClCompile Include="..\Geometry.cpp" />
     <ClCompile Include="..\Main.cpp" />
     <ClCompile Include="..\Model.cpp" />
+    <ClCompile Include="..\Shaders.cpp" />
     <ClCompile Include="..\TGAImage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -22,6 +23,7 @@
     <ClInclude Include="..\..\Include\Geometry.h" />
     <ClInclude Include="..\..\Include\Line.h" />
     <ClInclude Include="..\..\Include\Model.h" />
+    <ClInclude Include="..\..\Include\Shaders.h" />
     <ClInclude Include="..\..\Include\TGAImage.h" />
     <ClInclude Include="..\..\Include\Triangle.h" />
   </ItemGroup>
