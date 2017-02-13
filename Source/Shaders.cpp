@@ -14,7 +14,7 @@ namespace TinyRender
 //	Classes
 //		DummyShader constructors
 DummyShader::DummyShader(EngineManager& engine) : 
-	Shader(engine)
+	Shader(engine), m_fragment_normal()
 {
 }
 
@@ -23,6 +23,8 @@ Vec3i DummyShader::vertex(const Model& model, const int face_id, const int verte
 {
 	//	TODO: (alex) simplfy model API
 	const Vec3f& model_point = model.vertices()[model.triangles()[face_id].vertices[vertex_id]];
+	//	TODO: (alex) remove this hack!
+	m_fragment_normal = model.normals()[model.triangles()[face_id].normals[vertex_id]];
 	return get_engine().transform(model_point);
 }
 

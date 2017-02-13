@@ -43,6 +43,10 @@ public:
 */
 	virtual bool color(Pixel& pixel);
 
+private:
+//	Members
+//		Fragment normal
+	Vec3f m_fragment_normal;
 };
 
 //	Global functions
