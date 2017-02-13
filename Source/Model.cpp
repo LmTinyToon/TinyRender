@@ -135,7 +135,7 @@ private:
 		Vec3i vertices;
 		Vec3i uv_vertices;
 		Vec3i normals;
-		for (int i = 0; i < 2; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
 			skip_spaces(face_line, pos);
 			vertices[i] = parse_int_number(get_token_str(face_line, pos, '/'));
