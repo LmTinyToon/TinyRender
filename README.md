@@ -1,6 +1,6 @@
 # TinyRender
-It is my attemp to create own small render (for educational purposes) on C++ lanugage. 
-I am planning to implement basic algorithms of computer graphics in this project.
+TinyRender is  small renderer written mainly in educational purposes on C++ language. Current implementation is supported 
+on Windows, Linux operation systems.
 
 In current version of renderer I am using TGA format of file to produce result image.
 Current version of renderer supports simple operations on TGA images (such as create image, change pixels of image, save image).
@@ -16,9 +16,6 @@ Initial format of loaded models is wavefront obj file. Brief exploration of this
 
 2) http://paulbourke.net/dataformats/obj/
 
-NOTE: I am developing this project on platform Window. MCSV project is stored in repository.
-
-My implementation of TinyRender is partially based on https://github.com/ssloy/tinyrenderer 
-
+NOTE: My implementation of TinyRender is inspired by https://github.com/ssloy/tinyrenderer.
 Author of that project has really good course on Russian language at https://habrahabr.ru/post/248153/.
 	  
