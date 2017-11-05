@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <limits>
 
 //	Local includes
 #include "TGAImage.h"

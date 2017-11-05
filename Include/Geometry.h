@@ -4,6 +4,8 @@
 
 //	Std includes
 #include <array>
+#include <cmath>
+
 //	Includes
 
 //	TinyRender namespace 
@@ -88,7 +90,7 @@ public:
 */
 	num_type length(void) const
 	{
-		return sqrt((*this) * (*this));
+		return std::sqrt((*this) * (*this));
 	}
 
 /*

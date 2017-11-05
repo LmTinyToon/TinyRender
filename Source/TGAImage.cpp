@@ -1,5 +1,11 @@
 #include "TGAImage.h"
 
+//	Std includes
+#include <cstring>
+
+//	Using namespaces
+using namespace std;
+
 //	TinyRender namespace
 namespace TinyRender
 {
@@ -121,7 +127,7 @@ void TGAImage::load_buffer(const TGAImage::TGAHeader& header, std::ifstream& if_
 		}
 		break;
 		default:
-			throw std::exception("Unsupporting file format");
+			throw runtime_error("Unsupporting file format");
 	}
 }
 
